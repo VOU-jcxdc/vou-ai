@@ -163,3 +163,4 @@ cython_debug/
 
 # Output audio
 *.wav
+*.mp4

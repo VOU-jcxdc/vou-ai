@@ -1,21 +1,16 @@
 from TTS.api import TTS
 import torch
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-tts = None
+class TTSManager:
+    def __init__(self):
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.tts = None
 
-def init_tts():
-    try:
-        global tts
-        tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
-        print("TTS model loaded successfully")
-        return True
-    except Exception as e:
-        print(e)
-        return False
+        try:
+            self.tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(self.device)
+            print("TTS model loaded successfully")
+        except Exception as e:
+            print(e)
 
-def get_tts():
-    global tts
-    return tts
-
-init_tts()
+    def get_tts(self):
+        return self.tts
