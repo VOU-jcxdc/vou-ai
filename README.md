@@ -24,3 +24,14 @@ then you can fix it by install ffmpeg
 ```zsh
 conda install ffmpeg
 ```
+
+5. Start with ngrok
+- Step 1: Download ngrok or use the following in `tunnel` folder (Windows).
+- Step 2: Config ngrok
+```zsh
+ngrok config add-authtoken <your_token_here>
+```
+- Step 3: Run ngrok 
+```zsh
+ngrok http --domain=<your_domain_here> 8000
+```

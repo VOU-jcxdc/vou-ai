@@ -18,9 +18,9 @@ def convert_text_to_speech(body: Text2Speech):
     tts.tts_to_file(text=body.text, speaker_wav="resources/man.mp3", language="en", file_path="resources/output.wav")
     return FileResponse("resources/output.wav", media_type='audio/wav', filename="output.wav")
 
-@app.get("/api/videos/{uuid}")
-async def video_endpoint(uuid: str, range: str = Header(None)):
-    video_path = Path(f'outputs/{uuid}.mp4')
+@app.get("/api/videos/{id}")
+async def video_endpoint(id: str, range: str = Header(None)):
+    video_path = Path(f'outputs/{id}.mp4')
     start, end = range.replace("bytes=", "").split("-")
     start = int(start)
     end = int(end) if end else start + CHUNK_SIZE
@@ -39,7 +39,7 @@ async def video_endpoint(body: Text2Video):
     if not body.text:
         return Response("Bad Request", status_code=400)
     
-    result = w2l_manager.convert(text=body.text, file_name_only=body.uuid)
+    result = w2l_manager.convert(text=body.text, file_name_only=body.id)
 
     if (result is False):
         return {
