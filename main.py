@@ -15,8 +15,8 @@ CHUNK_SIZE = 1024*1024
 @app.post("/api/speech")
 def convert_text_to_speech(body: Text2Speech):
     tts = tts_manager.get_tts()
-    tts.tts_to_file(text=body.text, speaker_wav="resources/man.mp3", language="en", file_path="resources/output.wav")
-    return FileResponse("resources/output.wav", media_type='audio/wav', filename="output.wav")
+    tts.tts_to_file(text=body.text, speaker_wav="resources/man.mp3", language="en", file_path=f'resources/{body.id}.wav')
+    return FileResponse(f'resources/{body.id}.wav', media_type='audio/wav', filename="output.wav")
 
 @app.get("/api/videos/{id}")
 async def video_endpoint(id: str, range: str = Header(None)):
